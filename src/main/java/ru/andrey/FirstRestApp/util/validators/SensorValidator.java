@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import ru.andrey.FirstRestApp.dto.SensorDTO;
-import ru.andrey.FirstRestApp.models.Sensor;
 import ru.andrey.FirstRestApp.services.SensorService;
 
 @Component

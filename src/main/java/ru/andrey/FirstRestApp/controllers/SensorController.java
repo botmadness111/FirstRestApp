@@ -17,6 +17,7 @@ import ru.andrey.FirstRestApp.util.validators.SensorValidator;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/sensors")
@@ -33,15 +34,15 @@ public class SensorController {
     }
 
     @GetMapping()
-    public List<Sensor> getSensors() {
-        return sensorService.findAll();
+    public List<SensorDTO> getSensors() {
+        return sensorService.findAll().stream().map(this::convertToSensorDTO).collect(Collectors.toList());
     }
 
     @PostMapping("registration")
     public ResponseEntity<HttpStatus> doRegistration(@RequestBody @Valid SensorDTO sensorDTO, BindingResult bindingResult) {
         Sensor sensor = convertToSensor(sensorDTO);
 
-        //sensorValidator.validate(sensorDTO, bindingResult);
+        sensorValidator.validate(sensorDTO, bindingResult);
         if (bindingResult.hasErrors()) {
 
             StringBuilder errorMessage = new StringBuilder();

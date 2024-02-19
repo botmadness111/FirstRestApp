@@ -1,12 +1,18 @@
 package ru.andrey.FirstRestApp.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.hibernate.mapping.Array;
+import org.hibernate.mapping.Collection;
+import ru.andrey.FirstRestApp.services.MeasurementService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +29,7 @@ public class Sensor {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date date_of_registration;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "sensor")
     private List<Measurement> measurements;
 
@@ -59,6 +66,13 @@ public class Sensor {
 
     public void setMeasurements(List<Measurement> measurements) {
         this.measurements = measurements;
+    }
+
+    public void addMeasurement(Measurement measurement){
+        if (measurements == null){
+            measurements = new ArrayList<>(List.of(measurement));
+        }else
+            measurements.add(measurement);
     }
 
     @Override
