@@ -22,7 +22,7 @@ public class Measurement {
     @Column(name = "raining")
     private boolean raining;
 
-    @JsonManagedReference
+//    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "sensor_id", referencedColumnName = "id")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)

@@ -21,7 +21,6 @@ public class MeasurementDTO {
     private boolean raining;
 
     //@NotNull(message = "should be sensor")
-    @JsonIgnore
     private Sensor sensor;
 
 
