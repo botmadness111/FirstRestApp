@@ -1,0 +1,21 @@
+#docker-compose - файл, который прописывает логику того, как будут подниматься контейнеры.
+
+version: '3'
+
+services:
+  #конфигуририуем postgres
+  postgres: #выбираем готовый образ из docker:hub
+    image: postgres:16
+    container_name: java-postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=2871296=
+      - POSTGRES_DB=postgres
+
+  #конфигурируем backend
+  app: #на docker:hub нет нашего приложения, поэтому просто оставим путь к dockerfile нашего приложения. Он соберет наш dockerfile и запустит его образ
+    build: ./
+    container_name: java-app
+    ports:
+      - 8080:8080 #порт локальной сети компа -> порт контейнера
+
