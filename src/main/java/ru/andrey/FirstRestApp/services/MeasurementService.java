@@ -32,15 +32,16 @@ public class MeasurementService {
 
     @Transactional
     public void save(Measurement measurement) {
-        Sensor sensor = sensorRepository.searchByName(measurement.getSensor().getName());
-        measurement.setSensor(sensor);
+        Sensor sensor = sensorRepository.searchByName(measurement.getSensors().get(0).getName());
+//        measurement.setSensor(sensor);
+        measurement.addSensor(sensor);
         sensor.addMeasurement(measurement);
         measurementRepository.save(measurement);
     }
 
-    public Optional<Measurement> searchBySensorName(String name){
-        return measurementRepository.searchBySensorName(name);
-    }
+//    public Optional<Measurement> searchBySensorName(String name){
+//        return measurementRepository.searchBySensorName(name);
+//    }
 
     public Integer getRainyDaysCount(){
         return measurementsDAO.getRainyDaysCount();

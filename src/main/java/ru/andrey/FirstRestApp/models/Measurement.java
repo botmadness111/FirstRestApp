@@ -8,6 +8,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.Cascade;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "measurements")
 public class Measurement {
@@ -23,10 +27,22 @@ public class Measurement {
     private boolean raining;
 
 //    @JsonManagedReference
-    @ManyToOne
-    @JoinColumn(name = "sensor_id", referencedColumnName = "id")
+    @ManyToMany
+    @JoinTable(name = "sensor_id")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    private Sensor sensor;
+    private List<Sensor> sensors = new ArrayList<>();
+
+    public void addSensor(Sensor sensor){
+        sensors.add(sensor);
+    }
+
+    public List<Sensor> getSensors() {
+        return sensors;
+    }
+
+    public void setSensors(List<Sensor> sensors) {
+        this.sensors = sensors;
+    }
 
     public Measurement() {
     }
@@ -55,13 +71,13 @@ public class Measurement {
         this.raining = raining;
     }
 
-    public Sensor getSensor() {
-        return sensor;
-    }
-
-    public void setSensor(Sensor sensor) {
-        this.sensor = sensor;
-    }
+//    public Sensor getSensor() {
+//        return sensor;
+//    }
+//
+//    public void setSensor(Sensor sensor) {
+//        this.sensor = sensor;
+//    }
 
     @Override
     public String toString() {
@@ -69,7 +85,7 @@ public class Measurement {
                 "id=" + id +
                 ", value=" + value +
                 ", raining=" + raining +
-                ", sensor=" + sensor +
+//                ", sensor=" + sensor +
                 '}';
     }
 }

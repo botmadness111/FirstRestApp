@@ -12,6 +12,7 @@ import org.hibernate.mapping.Array;
 import org.hibernate.mapping.Collection;
 import ru.andrey.FirstRestApp.services.MeasurementService;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +31,7 @@ public class Sensor {
     private java.util.Date date_of_registration;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "sensor")
+    @ManyToMany(mappedBy = "sensors")
     private List<Measurement> measurements;
 
     public Sensor() {
